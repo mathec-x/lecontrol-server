@@ -1,0 +1,5 @@
+{
+    "watch": ["./src"],
+    "ignore": ["**/tests/","**/*.test.js", "**/*.spec.js", ".git", "node_modules"],
+    "exec": "npx eslint ./src && NODE_ENV=development node ./src/server.js"
+  }
