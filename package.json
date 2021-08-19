@@ -5,19 +5,19 @@
   "main": "./src/",
   "typings": "./src/typings",
   "repository": {
-    "url": "https://bitbucket.org/mathec/server/src/master/"
+    "url": "https://github.com/mathec-x/lecontrol-server"
   },
   "scripts": {
     "dev": "nodemon",
     "start": "NODE_ENV=development node ./src/server.js --watch",
     "test": "jest --detectOpenHandles",
-    "db:install": "npm install git+https://mathec:sxfzp6doq3robypjzmpimvqswkwkuge3jdjcd5bn6a5lh4y3pxia@dev.azure.com/lecontrol/models/_git/models",
+    "db:install": "npm install github:mathec-x/lecontrol-models",
     "db:uninstall": "npm remove @locontrol/models"
   },
   "author": "matheus santos correa",
   "license": "ISC",
   "dependencies": {
-    "@locontrol/models": "git+https://mathec:sxfzp6doq3robypjzmpimvqswkwkuge3jdjcd5bn6a5lh4y3pxia@dev.azure.com/lecontrol/models/_git/models",
+    "@locontrol/models": "github:mathec-x/lecontrol-models",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
