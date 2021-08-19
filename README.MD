@@ -1,5 +1,6 @@
 ## .env
 JWT_SECRET="token"
+
 DATABASE_URL="postgresql://user:password:port/database?schema=public"
 
 ## auth
