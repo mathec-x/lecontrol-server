@@ -74,7 +74,7 @@ module.exports.del = [
  */
   async (req, res) => {
     try {
-      req.io.to(req.user.Company.name).emit('dispatch', { type: 'products:will:delete', payload: { uuid: req.params.product, delete: true } });
+      req.io.to(req.user.Company.name).emit('dispatch', { type: 'products:will:delete', payload: { uuid: req.params.product, deleting: true } });
 
       const { count } = await db.productValidation.deleteMany({
         where: { Product: { uuid: req.params.product } },
@@ -89,7 +89,7 @@ module.exports.del = [
       return res.sendStatus(200);
     } catch (error) {
       console.log(error);
-      req.io.to(req.user.Company.name).emit('dispatch', { type: 'products:will:delete', payload: { uuid: req.params.product, delete: false } });
+      req.io.to(req.user.Company.name).emit('dispatch', { type: 'products:will:delete', payload: { uuid: req.params.product, deleting: false } });
     }
 
     return res.sendStatus(400);

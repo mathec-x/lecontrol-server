@@ -46,7 +46,7 @@ module.exports.del = [
    */
   async (req, res) => {
     try {
-      req.io.to(req.user.Company.name).emit('dispatch', { type: 'validations:will:delete', payload: { uuid: req.params.validation, delete: true } });
+      req.io.to(req.user.Company.name).emit('dispatch', { type: 'validations:will:delete', payload: { uuid: req.params.validation, deleting: true } });
 
       const response = await db.productValidation.delete({
         where: {
@@ -57,7 +57,7 @@ module.exports.del = [
       req.io.to(req.user.Company.name).emit('dispatch', { type: 'validations:delete', payload: response });
       return res.sendStatus(200);
     } catch (error) {
-      req.io.to(req.user.Company.name).emit('dispatch', { type: 'validations:will:delete', payload: { uuid: req.params.validation, delete: false } });
+      req.io.to(req.user.Company.name).emit('dispatch', { type: 'validations:will:delete', payload: { uuid: req.params.validation, deleting: false } });
       console.log(error);
     }
 
