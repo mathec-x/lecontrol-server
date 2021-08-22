@@ -1,7 +1,6 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-const { db } = require('@locontrol/models');
 
 const app = express();
 const httpServer = require('http').createServer(app);
@@ -27,8 +26,11 @@ app
   .use(express.static(path.join(__dirname, '..', 'build')))
   .use(express.urlencoded({ extended: true }))
   .use(express.json({ type: ['application/json', 'text/plain'] }))
-  .use(withSocket(io, () => db.$disconnect()))
-  .use('/', fileBased())
-  .get('*', (req, res) => { res.sendFile(path.join(__dirname, '..', 'build', 'index.html')); });
+  .use(withSocket(io))
+  .use('/api', fileBased({ directory: 'routes/api' }))
+  .use('/auth', fileBased({ directory: 'routes/auth' }))
+  .get('*', (_, res) => { res.sendFile(path.join(__dirname, '..', 'build', 'index.html')); });
 
 module.exports = httpServer;
+
+/// <reference path="typings/global.d.ts" />

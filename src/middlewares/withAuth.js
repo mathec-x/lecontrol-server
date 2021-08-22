@@ -1,3 +1,4 @@
+const { db } = require('@locontrol/models');
 const jwt = require('jsonwebtoken');
 /**
  * @param {import('express').Request } req
@@ -12,7 +13,9 @@ const withAuth = (req, res, next) => {
     if (err) return res.status(403).json({ auth: false, message: 'Failed to authenticate token.' });
 
     req.user = { ...decoded, token };
-    return next();
+    next();
+
+    return db.$disconnect();
   });
 };
 

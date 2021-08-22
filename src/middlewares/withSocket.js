@@ -5,16 +5,14 @@
  * @returns {import("express").Handler}
  */
 
-const withSocket = (io, beforeCallback) => (req, res, next) => {
+const withSocket = (io) => (req, _, next) => {
   req.socketId = req.headers['socket-id'];
 
-  if (!req.socketId) {
-    res.sendStatus(403);
-  } else {
+  if (req.socketId) {
     req.io = io;
-    next();
-    beforeCallback();
   }
+
+  next();
 };
 
 module.exports = withSocket;
