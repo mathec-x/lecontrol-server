@@ -15,16 +15,11 @@ exports.handleAuthentication = (socket, next) => {
 };
 
 /** @param {import('socket.io').Socket} socket */
-const handleData = (socket) => {
-  socket.emit('dispatch', { type: 'user:login', payload: socket.user });
-};
-
-/** @param {import('socket.io').Socket} socket */
 exports.handleConnection = (socket) => {
   socket.join(socket.id);
 
   if (socket.user) {
     socket.join(socket.user.Company.name);
-    handleData(socket);
+    socket.emit('dispatch', { type: 'user:login', payload: socket.user });
   }
 };

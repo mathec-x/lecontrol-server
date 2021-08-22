@@ -35,6 +35,8 @@ module.exports.get = [
         return product;
       });
 
+      console.log({ products });
+
       req.io.to(req.user.Company.name).emit('dispatch', { type: 'products:mount', payload: products.sort((a, b) => a.label.localeCompare(b.label)) });
       req.io.to(req.user.Company.name).emit('dispatch', { type: 'validations:mount', payload: validations });
       return res.sendStatus(200);

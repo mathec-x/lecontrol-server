@@ -25,10 +25,10 @@ io.use(handleAuthentication).on('connection', handleConnection);
 app
   .use(cors())
   .use(express.static(path.join(__dirname, '..', 'build')))
-  .get('*', (req, res) => { res.sendFile(path.join(__dirname, '..', 'build', 'index.html')); })
   .use(express.urlencoded({ extended: true }))
   .use(express.json({ type: ['application/json', 'text/plain'] }))
   .use(withSocket(io, () => db.$disconnect()))
-  .use('/', fileBased());
+  .use('/', fileBased())
+  .get('*', (req, res) => { res.sendFile(path.join(__dirname, '..', 'build', 'index.html')); });
 
 module.exports = httpServer;
