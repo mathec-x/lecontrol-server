@@ -17,6 +17,10 @@ const urlsToCache = [
   '/static/media/background.5b447c03.png',
 ];
 
+// const BlackList = [
+//   'socket',
+// ];
+
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME)
@@ -49,9 +53,7 @@ self.addEventListener('activate', (event) => {
 // const appIcon = '/icons/favicon.ico';
 
 // array routers on fetch not will cache
-// const BlackList = [
-//   'socket',
-// ];
+
 // https://developers.google.com/web/ilt/pwa/introduction-to-push-notifications#request_permission
 
 // const urlB64ToUint8Array = (base64String) => {
@@ -75,23 +77,26 @@ self.addEventListener('activate', (event) => {
 /**
  * cache all fetch data make inside app, this is not really usefull in some cases
  */
-// self.addEventListener('fetch', (e) => {
-//   e.respondWith((async () => {
-//     const r = await caches.match(e.request);
-//     if (r) { return r; }
+this.addEventListener('fetch', (event) => {
+  event.respondWith(
+    caches.match(event.request).then((response) => response || fetch(event.request)),
+  );
+  // e.respondWith((async () => {
+  //   const r = await caches.match(e.request);
+  //   if (r) { return r; }
 
-//     const response = await fetch(e.request);
+  //   return e.request;
+  // const response = await fetch(e.request);
+  // posts, put, delete are not allowed to cache
+  // if (e.request.method === 'GET' && !BlackList.includes(e.request.url)) {
+  //   console.log(`[Service Worker ${e.request.method}] Caching new resource from ${CACHE_NAME}: ${e.request.url}`);
+  //   const cache = await caches.open(CACHE_NAME);
+  //   cache.put(e.request, response.clone());
+  // }
 
-//     // posts, put, delete are not allowed to cache
-//     if (e.request.method === 'GET' && !BlackList.includes(e.request.url)) {
-//       console.log(`[Service Worker ${e.request.method}] Caching new resource from ${CACHE_NAME}: ${e.request.url}`);
-//       const cache = await caches.open(CACHE_NAME);
-//       cache.put(e.request, response.clone());
-//     }
-
-//     return response;
-//   })());
-// });
+  // return response;
+  // })());
+});
 
 //  self.addEventListener("push", function (event) {
 //    /**@type {{body: string, title: string, icon: string?}} message */
