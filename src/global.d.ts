@@ -1,5 +1,4 @@
-import io from 'socket.io'
-
+import io from 'socket.io';
 
 type DefaultEventsMap = "dispatch"|"refresh";
 

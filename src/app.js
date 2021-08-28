@@ -1,3 +1,5 @@
+/// <reference path="./typings/global.d.ts" />
+
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
@@ -27,10 +29,10 @@ app
   .use(express.urlencoded({ extended: true }))
   .use(express.json({ type: ['application/json', 'text/plain'] }))
   .use(withSocket(io))
-  .use('/api', fileBased({ directory: 'routes/api' }))
-  .use('/auth', fileBased({ directory: 'routes/auth' }))
+  .use('/api', fileBased({ directory: 'routes/api', base: '/api' }))
+  .use('/auth', fileBased({ directory: 'routes/auth', base: '/auth' }))
+  // or just because inside routes
+  // .use('/', fileBased())
   .get('*', (_, res) => { res.sendFile(path.join(__dirname, '..', 'build', 'index.html')); });
 
 module.exports = httpServer;
-
-/// <reference path="typings/global.d.ts" />

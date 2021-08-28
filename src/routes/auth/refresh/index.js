@@ -5,7 +5,7 @@ const withAuth = require('../../../middlewares/withAuth');
 module.exports.get = [
   withAuth,
   /**
- * @param {withAuth.Authorized & import('express').Request} req
+ * @param {import('express').Request} req
  * @param {import('express').Response} res
  */async (req, res) => {
     try {
